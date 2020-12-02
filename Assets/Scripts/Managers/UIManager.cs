@@ -20,7 +20,7 @@
         [Header("Text")]
         [SerializeField] Text textToSet = default;
 
-        void Start()
+        void Awake()
         {
             //remove menu
             PauseMenu(false);

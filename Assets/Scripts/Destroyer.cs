@@ -10,7 +10,7 @@ public class Destroyer : MonoBehaviour
         //if was player, end game
         if (collision.transform.GetComponentInParent<Player>())
         {
-            redd096.GameManager.instance.levelManager.EndGame();
+            redd096.GameManager.instance.levelManager.EndGame(false);
         }
     }
 }

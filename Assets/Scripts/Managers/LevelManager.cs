@@ -43,10 +43,10 @@ public class LevelManager : MonoBehaviour
         GameManager.instance.player.enabled = true;
     }
 
-    public void EndGame()
+    public void EndGame(bool win)
     {
         //stop time and show end menu
         Time.timeScale = 0;
-        GameManager.instance.uiManager.EndMenu(true);
+        GameManager.instance.uiManager.EndMenu(true, win);
     }
 }

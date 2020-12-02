@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     [Header("Important")]
     [SerializeField] Transform objectToRotate = default;
-    [SerializeField] float rotationHandler = 5;
-    [SerializeField] UnityEngine.UI.Text textToSet = default;
+    [SerializeField] float rotationHandler = 0.5f;
 
     [Header("Limits")]
     [SerializeField] float xAxis = 50;
@@ -23,6 +20,15 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        //if press escape or start, pause or resume game
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button7))
+        {
+            if (Time.timeScale <= 0)
+                redd096.SceneLoader.instance.ResumeGame();
+            else
+                redd096.SceneLoader.instance.PauseGame();
+        }
+
 #if UNITY_ANDROID && !UNITY_EDITOR
         //use gyro or accel
         if (useGyro)
@@ -51,7 +57,7 @@ public class Player : MonoBehaviour
         Vector3 euler = new Vector3(inputPosition.y, 0, -inputPosition.x);
         objectToRotate.rotation = Quaternion.Lerp(objectToRotate.rotation, Quaternion.Euler(euler), Time.deltaTime * rotationHandler);
 
-        textToSet.text = euler.ToString();
+        redd096.GameManager.instance.uiManager.SetText(euler.ToString());
     }
 
     #endregion
@@ -61,9 +67,9 @@ public class Player : MonoBehaviour
     void RotateOnGyroScope()
     {
         //set rotation base on gyro
-        objectToRotate.rotation = Quaternion.Slerp(objectToRotate.rotation, Input.gyro.attitude, Time.deltaTime * rotationHandler);
+        objectToRotate.rotation = Quaternion.Lerp(objectToRotate.rotation, Input.gyro.attitude, Time.deltaTime * rotationHandler);
 
-        textToSet.text = Input.gyro.attitude.ToString();
+        redd096.GameManager.instance.uiManager.SetText(Input.gyro.attitude.ToString());
     }
 
     void RotateOnAccelerometer()
@@ -77,9 +83,7 @@ public class Player : MonoBehaviour
         Vector3 euler = new Vector3(inputPosition.y, 0, -inputPosition.x);
         objectToRotate.rotation = Quaternion.Lerp(objectToRotate.rotation, Quaternion.Euler(euler), Time.deltaTime * rotationHandler);
 
-        textToSet.text = euler.ToString();
-
-        //objectToRotate.eulerAngles += new Vector3(-Input.acceleration.y, 0, Input.acceleration.x) * rotationHandler * Time.deltaTime;
+        redd096.GameManager.instance.uiManager.SetText(euler.ToString());
     }
 
     #endregion

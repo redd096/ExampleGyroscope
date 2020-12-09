@@ -28,7 +28,34 @@
             //remove menu
             PauseMenu(false);
             EndMenu(false);
+
+            AddEvents();
         }
+
+        void OnDestroy()
+        {
+            RemoveEvents();
+        }
+
+        #region events
+
+        void AddEvents()
+        {
+            GameManager.instance.levelManager.onEndGame += OnEndGame;
+        }
+
+        void RemoveEvents()
+        {
+            GameManager.instance.levelManager.onEndGame -= OnEndGame;
+        }
+
+        void OnEndGame(bool win)
+        {
+            //show end menu
+            EndMenu(true, win);
+        }
+
+        #endregion
 
         #region public API
 

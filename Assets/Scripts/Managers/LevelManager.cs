@@ -1,7 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using redd096;
 
 public class LevelManager : MonoBehaviour
 {
@@ -10,11 +8,11 @@ public class LevelManager : MonoBehaviour
 
     Coroutine startGame_coroutine;
 
+    public System.Action onStartGame;
+    public System.Action<bool> onEndGame;
+
     void Start()
     {
-        //stop player
-        GameManager.instance.player.enabled = false;
-
         //be sure to run only one coroutine
         if (startGame_coroutine != null)
             StopCoroutine(startGame_coroutine);
@@ -29,7 +27,7 @@ public class LevelManager : MonoBehaviour
         float timer = Time.time + timeBeforeStart;
         while(Time.time < timer)
         {
-            GameManager.instance.uiManager.SetText( (timer - Time.time).ToString("F0") );
+            redd096.GameManager.instance.uiManager.SetText( (timer - Time.time).ToString("F0") );
             yield return null;
         }
 
@@ -39,14 +37,14 @@ public class LevelManager : MonoBehaviour
 
     public void StartGame()
     {
-        //enable player
-        GameManager.instance.player.enabled = true;
+        //call event
+        onStartGame?.Invoke();
     }
 
     public void EndGame(bool win)
     {
-        //stop time and show end menu
+        //stop time and call event
         Time.timeScale = 0;
-        GameManager.instance.uiManager.EndMenu(true, win);
+        onEndGame?.Invoke(win);
     }
 }

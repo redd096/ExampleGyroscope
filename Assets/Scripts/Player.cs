@@ -30,6 +30,15 @@ public class Player : MonoBehaviour
     {
         cam = Camera.main;
         eventSystem = FindObjectOfType<EventSystem>();
+
+        AddEvents();
+
+        enabled = false;
+    }
+
+    void OnDestroy()
+    {
+        RemoveEvents();
     }
 
     void Update()
@@ -60,6 +69,26 @@ public class Player : MonoBehaviour
                 break;
         }
     }
+
+    #region events
+
+    void AddEvents()
+    {
+        GameManager.instance.levelManager.onStartGame += OnStartGame;
+    }
+
+    void RemoveEvents()
+    {
+        GameManager.instance.levelManager.onStartGame -= OnStartGame;
+    }
+
+    void OnStartGame()
+    {
+        //enable player
+        enabled = true;
+    }
+
+    #endregion
 
     #region commands API
 

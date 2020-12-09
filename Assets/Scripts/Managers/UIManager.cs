@@ -23,7 +23,7 @@
         [SerializeField] RectTransform analog = default;
         [SerializeField] float smooth = 10;
 
-        void Awake()
+        private void Start()
         {
             //remove menu
             PauseMenu(false);

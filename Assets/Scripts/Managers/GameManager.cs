@@ -15,12 +15,6 @@
             uiManager = FindObjectOfType<UIManager>();
             player = FindObjectOfType<Player>();
             levelManager = FindObjectOfType<LevelManager>();
-
-            //if there is a player, lock mouse
-            //if (player)
-            //{
-            //    FindObjectOfType<SceneLoader>().ResumeGame();
-            //}
         }
     }
 }

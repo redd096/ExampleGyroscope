@@ -17,6 +17,7 @@ public class Player : StateMachine
     [SerializeField] UnityEngine.UI.GraphicRaycaster raycaster = default;
 
     public UnityEngine.UI.GraphicRaycaster Raycaster => raycaster;
+    bool canMove;
 
     #endregion
 
@@ -24,8 +25,7 @@ public class Player : StateMachine
     {
         AddEvents();
 
-        //by default is not enabled and is in analog state
-        enabled = false;
+        //by default is in analog state
         SetState(new AnalogState(this));
     }
 
@@ -36,7 +36,11 @@ public class Player : StateMachine
 
     protected override void Update()
     {
-        base.Update();
+        //move only when start game
+        if (canMove)
+        {
+            base.Update();
+        }
 
         //if press escape or start, pause or resume game
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button7))
@@ -63,7 +67,7 @@ public class Player : StateMachine
     void OnStartGame()
     {
         //enable player
-        enabled = true;
+        canMove = true;
     }
 
     #endregion

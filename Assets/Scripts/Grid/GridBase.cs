@@ -7,9 +7,9 @@ public abstract class GridBase : MonoBehaviour
     [SerializeField] bool regen;
 
     [Header("Grid Base")]
-    [SerializeField] Vector3 startPosition = Vector3.zero;
-    [Tooltip("When import texture, set Non-Power of 2 to None, and enable Read/Write")] [SerializeField] Texture2D gridImage = default;
-    [SerializeField] Vector3 tileSize = Vector3.one;
+    [SerializeField] protected Vector3 startPosition = Vector3.zero;
+    [Tooltip("When import texture, set Non-Power of 2 to None, and enable Read/Write")] [SerializeField] protected Texture2D gridImage = default;
+    [SerializeField] protected Vector3 tileSize = Vector3.one;
 
     public Dictionary<Vector2Int, TileBase> Grid = new Dictionary<Vector2Int, TileBase>();
 
@@ -75,7 +75,7 @@ public abstract class GridBase : MonoBehaviour
         Grid.Clear();
     }
 
-    void GenerateGrid()
+    protected virtual void GenerateGrid()
     {
         //for every pixel in image
         for(int x = 0; x < gridImage.width; x++)

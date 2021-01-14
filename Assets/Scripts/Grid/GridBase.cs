@@ -3,27 +3,12 @@ using UnityEngine;
 
 public abstract class GridBase : MonoBehaviour
 {
-    [Header("Regen")]
-    [SerializeField] bool regen;
-
     [Header("Grid Base")]
     [SerializeField] protected Vector3 startPosition = Vector3.zero;
     [Tooltip("When import texture, set Non-Power of 2 to None, and enable Read/Write")] [SerializeField] protected Texture2D gridImage = default;
     [SerializeField] protected Vector3 tileSize = Vector3.one;
 
     public Dictionary<Vector2Int, TileBase> Grid = new Dictionary<Vector2Int, TileBase>();
-
-    void OnValidate()
-    {
-        //regen grid
-        if(regen)
-        {
-            regen = false;
-
-            RegenGrid();
-            SetUndo();
-        }
-    }
 
     void Awake()
     {
@@ -33,27 +18,11 @@ public abstract class GridBase : MonoBehaviour
 
     #region regen grid
 
-    void RegenGrid()
+    public void RegenGrid()
     {
         //remove old grid and generate new one
         RemoveOldGrid();
         GenerateGrid();
-    }
-
-    void SetUndo()
-    {
-        //set undo
-#if UNITY_EDITOR
-        UnityEditor.Undo.RegisterFullObjectHierarchyUndo(gameObject, "Regen World");
-#endif
-        //foreach(Transform child in transform)
-        //{
-        //    Undo.RecordObject(child, "Regen World");
-        //}
-
-        //set scene dirty
-        //using UnityEditor.SceneManagement;
-        //EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
     }
 
     void RemoveOldGrid()

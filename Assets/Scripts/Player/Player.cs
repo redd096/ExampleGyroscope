@@ -31,6 +31,9 @@ public class Player : StateMachine
         //set object to rotate if not setted
         if (objectToRotate == null)
             objectToRotate = FindObjectOfType<GridBase>().transform;
+
+        //by default is in analog state
+        SetState(new AnalogState(this));
     }
 
     void OnDestroy()
@@ -40,7 +43,11 @@ public class Player : StateMachine
 
     protected override void Update()
     {
-        base.Update();
+        //use bool, because can change state also during timer before start game
+        if (canMove)
+        {
+            base.Update();
+        }
 
         //if press escape or start, pause or resume game
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button7))
@@ -66,8 +73,7 @@ public class Player : StateMachine
 
     void OnStartGame()
     {
-        //by default is in analog state
-        SetState(new AnalogState(this));
+        canMove = true;
     }
 
     #endregion
@@ -92,6 +98,9 @@ public class Player : StateMachine
                 SetState(new MouseState(this));
                 break;
         }
+
+        //active analog only on analog state
+        raycaster.gameObject.SetActive(input == 0);
     }
 
     public void Rotate(Vector3 inputPosition)

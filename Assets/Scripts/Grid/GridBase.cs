@@ -60,8 +60,9 @@ public abstract class GridBase : MonoBehaviour
                 tile.transform.rotation = Quaternion.identity;
 
                 //init tile and add to dictionary
-                tile.Init(pixel);
-                Grid.Add(new Vector2Int(x, y), tile);
+                Vector2Int positionInGrid = new Vector2Int(x, y);
+                tile.Init(pixel, positionInGrid);
+                Grid.Add(positionInGrid, tile);
             }
         }
     }
@@ -90,5 +91,10 @@ public abstract class GridBase : MonoBehaviour
 
     #endregion
 
+    /// <summary>
+    /// Select tile based on color
+    /// </summary>
+    /// <param name="pixel">pixel color in image</param>
+    /// <returns></returns>
     protected abstract TileBase SelectTile(Color pixel);
 }

@@ -40,7 +40,7 @@ public class AnalogState : PlayerState
             //if drag, move analog
             if (draggedObject)
             {
-                GameManager.instance.uiManager.AnalogPosition(Utility.InputPosition());
+                player.AnalogScript.AnalogPosition(Utility.InputPosition());
             }
         }
         //else, stop drag
@@ -51,7 +51,7 @@ public class AnalogState : PlayerState
 
         //if no drag reset analog position
         if (draggedObject == null)
-            GameManager.instance.uiManager.ResetAnalogPosition();
+            player.AnalogScript.ResetAnalogPosition();
 
         //rotate
         RotateOnAnalog();
@@ -83,7 +83,7 @@ public class AnalogState : PlayerState
 
         //get anchored position of analog, then remap from (-areaSize, areaSize) to player limit axis
         //(analog anchored position move from -area.sizeDelta/2 to area.sizeDelta/2)
-        Vector3 inputPosition = GameManager.instance.uiManager.GetAnalogAnchoredPosition();
+        Vector3 inputPosition = player.AnalogScript.GetAnalogAnchoredPosition();
         inputPosition.x = player.Remap(inputPosition.x, -draggedObject.sizeDelta.x / 2, draggedObject.sizeDelta.x / 2, true);
         inputPosition.y = player.Remap(inputPosition.y, -draggedObject.sizeDelta.y / 2, draggedObject.sizeDelta.y / 2, false);
 

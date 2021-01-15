@@ -27,7 +27,7 @@ public class LevelManager : MonoBehaviour
         float timer = Time.time + timeBeforeStart;
         while(Time.time < timer)
         {
-            redd096.GameManager.instance.uiManager.SetText( (timer - Time.time).ToString("F0") );
+            redd096.GameManager.instance.uiManager.SetDebugText( (timer - Time.time).ToString("F0") );
             yield return null;
         }
 

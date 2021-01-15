@@ -92,6 +92,9 @@ public class Player : StateMachine
                 SetState(new MouseState(this));
                 break;
         }
+
+        //active analog only on analog state
+        raycaster.gameObject.SetActive(input == 0);
     }
 
     public void Rotate(Vector3 inputPosition)

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 65518416764954489}
-  - component: {fileID: 7014898895545371186}
+  - component: {fileID: -264686327338604650}
   m_Layer: 0
   m_Name: TileBase
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7014898895545371186
+--- !u!114 &-264686327338604650
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,9 +41,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3282751525529586201}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95b5f6e0f67395a40a63bbd14afc21e1, type: 3}
+  m_Script: {fileID: 11500000, guid: a7c2ac09819f6fa4f9a9b16366ac29ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pixel: {r: 0, g: 0, b: 0, a: 0}
+  positionInGrid: {x: 0, y: 0}
 --- !u!1 &9060073166241416678
 GameObject:
   m_ObjectHideFlags: 0

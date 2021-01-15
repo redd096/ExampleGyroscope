@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+[SelectionBase]
 public class TileLabyrinth : TileBase, IColorable
 {
     public void ColorElement(Color drawColor)

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using redd096;
 
+[SelectionBase]
 public class Player : StateMachine
 {
     #region variables

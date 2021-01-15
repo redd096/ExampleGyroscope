@@ -10,7 +10,12 @@ PrefabInstance:
     - target: {fileID: 3282751525529586201, guid: 0a9f7538dee22674fbc946112566106f,
         type: 3}
       propertyPath: m_Name
-      value: TileBase
+      value: Hole
+      objectReference: {fileID: 0}
+    - target: {fileID: -264686327338604650, guid: 0a9f7538dee22674fbc946112566106f,
+        type: 3}
+      propertyPath: canColor
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 65518416764954489, guid: 0a9f7538dee22674fbc946112566106f,
         type: 3}

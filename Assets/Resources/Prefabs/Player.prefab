@@ -347,6 +347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56d12d19518fa61449d3a9b036480578, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  contactDistance: 3
 --- !u!54 &5067593153505163139
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -362,7 +363,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &1099649646966814278
 MonoBehaviour:
   m_ObjectHideFlags: 0

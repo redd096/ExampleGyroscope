@@ -8,7 +8,7 @@ public abstract class GridBase : MonoBehaviour
     [Tooltip("When import texture, set Non-Power of 2 to None, and enable Read/Write")] [SerializeField] protected Texture2D gridImage = default;
     [SerializeField] protected Vector3 tileSize = Vector3.one;
 
-    public Dictionary<Vector2Int, TileBase> Grid = new Dictionary<Vector2Int, TileBase>();
+    protected Dictionary<Vector2Int, TileBase> Grid = new Dictionary<Vector2Int, TileBase>();
 
     void Awake()
     {

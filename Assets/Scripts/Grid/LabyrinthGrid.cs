@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using redd096;
 
 [System.Serializable]
 public struct TileStruct
@@ -47,5 +48,23 @@ public class LabyrinthGrid : GridBase
         }
 
         return null;
+    }
+
+    public bool CheckEndLevel()
+    {
+        //if a tile is not colored, return false
+        foreach(TileLabyrinth tile in Grid.Values)
+        {
+            if (tile.IsColored == false)
+                return false;
+        }
+
+        return true;
+    }
+
+    public TileBase GetCurrentTile(Vector3 position)
+    {
+        //return nearest tile
+        return Utility.FindNearest(Grid, position, out Vector2Int key);
     }
 }

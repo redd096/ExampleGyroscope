@@ -2,5 +2,5 @@
 
 public interface IColorable
 {
-    void ColorElement(Color color);
+    bool ColorElement(Color color);
 }

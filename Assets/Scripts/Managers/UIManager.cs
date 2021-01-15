@@ -1,5 +1,6 @@
 ﻿namespace redd096
 {
+    using System.Collections;
     using UnityEngine;
     using UnityEngine.UI;
 
@@ -15,19 +16,23 @@
         [SerializeField] string winString = "You Won!";
         [SerializeField] string loseString = "You Lost!";
 
-        [Header("Text")]
-        [SerializeField] Text textToSet = default;
+        [Header("Hint End Game")]
+        [SerializeField] GameObject hintEndGame = default;
+        [SerializeField] float timeBeforeRemove = 2;
 
-        [Header("Analog")]
-        [SerializeField] RectTransform area = default;
-        [SerializeField] RectTransform analog = default;
-        [SerializeField] float smooth = 10;
+        [Header("Debug Text")]
+        [SerializeField] Text debugTextToSet = default;
+
+        Coroutine deactiveHintEndGame;
 
         private void Start()
         {
             //remove menu
             PauseMenu(false);
             EndMenu(false);
+
+            //hide hint
+            hintEndGame.SetActive(false);
 
             AddEvents();
         }
@@ -83,49 +88,35 @@
             endMenu.SetActive(active);
         }
 
-        public void SetText(string text)
+        public void SetDebugText(string text)
         {
-            if (textToSet == null)
+            if (debugTextToSet == null)
                 return;
 
             //set text
-            textToSet.text = text;
+            debugTextToSet.text = text;
         }
 
-        #region analog
-
-        public void AnalogPosition(Vector2 position)
+        public void ActivateHintEndGame()
         {
-            if (analog == null)
-                return;
+            //active
+            hintEndGame.SetActive(true);
 
-            //set analog position
-            analog.position = Vector2.Lerp(analog.position, position, Time.deltaTime * smooth);
+            //start timer to deactivate
+            if (deactiveHintEndGame != null)
+                StopCoroutine(deactiveHintEndGame);
 
-            //clamp in area
-            Vector2 anchoredPosition = analog.anchoredPosition;
-            anchoredPosition.x = Mathf.Clamp(anchoredPosition.x, -area.sizeDelta.x / 2, area.sizeDelta.x / 2);
-            anchoredPosition.y = Mathf.Clamp(anchoredPosition.y, -area.sizeDelta.y / 2, area.sizeDelta.y / 2);
-
-            analog.anchoredPosition = anchoredPosition;
-        }
-
-        public void ResetAnalogPosition()
-        {
-            if (analog == null)
-                return;
-
-            //reset analog position
-            analog.anchoredPosition = Vector2.Lerp(analog.anchoredPosition, Vector2.zero, Time.deltaTime * smooth);
-        }
-
-        public Vector3 GetAnalogAnchoredPosition()
-        {
-            return analog.anchoredPosition;
+            deactiveHintEndGame = StartCoroutine(DeactiveHintEndGame());
         }
 
         #endregion
 
-        #endregion
+        IEnumerator DeactiveHintEndGame()
+        {
+            //wait, then deactivate
+            yield return new WaitForSeconds(timeBeforeRemove);
+
+            hintEndGame.SetActive(false);
+        }
     }
 }

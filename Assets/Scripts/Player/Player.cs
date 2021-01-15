@@ -15,8 +15,10 @@ public class Player : StateMachine
     [SerializeField] float zAxis = 50;
 
     [Header("Analog")]
+    [SerializeField] AnalogScript analogScript = default;
     [SerializeField] UnityEngine.UI.GraphicRaycaster raycaster = default;
 
+    public AnalogScript AnalogScript => analogScript;
     public UnityEngine.UI.GraphicRaycaster Raycaster => raycaster;
     bool canMove;
 
@@ -26,8 +28,9 @@ public class Player : StateMachine
     {
         AddEvents();
 
-        //by default is in analog state
-        SetState(new AnalogState(this));
+        //set object to rotate if not setted
+        if (objectToRotate == null)
+            objectToRotate = FindObjectOfType<GridBase>().transform;
     }
 
     void OnDestroy()
@@ -37,11 +40,7 @@ public class Player : StateMachine
 
     protected override void Update()
     {
-        //move only when start game
-        if (canMove)
-        {
-            base.Update();
-        }
+        base.Update();
 
         //if press escape or start, pause or resume game
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button7))
@@ -67,8 +66,8 @@ public class Player : StateMachine
 
     void OnStartGame()
     {
-        //enable player
-        canMove = true;
+        //by default is in analog state
+        SetState(new AnalogState(this));
     }
 
     #endregion
@@ -102,7 +101,7 @@ public class Player : StateMachine
         objectToRotate.rotation = Quaternion.Lerp(objectToRotate.rotation, Quaternion.Euler(euler), Time.deltaTime * rotationHandler);
 
         //update UI
-        GameManager.instance.uiManager.SetText(euler.ToString());
+        GameManager.instance.uiManager.SetDebugText(euler.ToString());
     }
 
     public void GyroRotate(Quaternion inputRotation)
@@ -111,7 +110,7 @@ public class Player : StateMachine
         objectToRotate.rotation = Quaternion.Lerp(objectToRotate.rotation, inputRotation, Time.deltaTime * rotationHandler);
 
         //update UI
-        GameManager.instance.uiManager.SetText(inputRotation.ToString());
+        GameManager.instance.uiManager.SetDebugText(inputRotation.ToString());
     }
 
     public float Remap(float value, float from, float to, bool useXAxis)

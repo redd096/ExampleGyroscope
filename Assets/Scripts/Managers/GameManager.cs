@@ -16,5 +16,13 @@
             levelManager = FindObjectOfType<LevelManager>();
             labyrinthGrid = FindObjectOfType<LabyrinthGrid>();
         }
+
+        /// <summary>
+        /// set player commands
+        /// </summary>
+        public void SetPlayerCommands(int input)
+        {
+            FindObjectOfType<Player>().SetCommands(input);
+        }
     }
 }

@@ -3,8 +3,8 @@
     using UnityEngine;
     using UnityEngine.SceneManagement;
 
-    [AddComponentMenu("redd096/Singletons/Scene Loader")]
-    public class SceneLoader : Singleton<SceneLoader>
+    [AddComponentMenu("redd096/Singletons/Old Scene Loader")]
+    public class OldSceneLoader : Singleton<OldSceneLoader>
     {
         /// <summary>
         /// Resume time and hide cursor

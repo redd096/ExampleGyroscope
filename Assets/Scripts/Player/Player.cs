@@ -53,9 +53,9 @@ public class Player : StateMachine
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button7))
         {
             if (Time.timeScale <= 0)
-                SceneLoader.instance.ResumeGame();
+                OldSceneLoader.instance.ResumeGame();
             else
-                SceneLoader.instance.PauseGame();
+                OldSceneLoader.instance.PauseGame();
         }
     }
 
